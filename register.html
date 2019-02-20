@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<link rel="icon" href="pic/movie.png">
+	<title>Register</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
+</head>
+
+<body>
+	<div id="app" class="container">
+
+		<article class="card-body mx-auto" style="max-width: 500px;">
+			<form>
+			<h1 class="text-center">Register</h1>
+
+				<div class="form-group">
+					<label for="user_id">id:</label>
+					<input type="text" class="form-control" id="user_id" v-model="id">
+				</div>
+
+				<div class="form-group">
+					<label for="pwd1">Password:</label>
+					<input type="password" class="form-control" id="pwd1" v-model="pass">
+				</div>
+
+				<div class="form-group">
+					<label for="pwd2">Confirm Password:</label>
+					<input type="password" class="form-control" id="pwd2" v-model="confirm">
+				</div>
+
+				<button type="submit" class="btn btn-primary" @click="regis">Create Account</button>
+			</form>
+		</article>
+	</div>
+
+<script src="https://cdn.jsdelivr.net/npm/vue@2.5.22/dist/vue.js"></script>
+
+
+	<script>
+		var vm = new Vue({
+			el: "#app",
+	
+			data:{
+				id: "",
+				pass: "",
+				confirm: "",
+			},
+	
+			methods:{
+				
+				regis: function() {
+					if(this.id == "" || this.pass == "" || this.confirm == ""){
+						alert("กรุณากรอกข้อมูลให้ครบถ้วน");
+					}
+					
+					else if(typeof Cookies.get(this.id) != "undefined"){
+						alert("ไอดีนี้มีอยู่ในระบบแล้ว");
+					}
+
+					else if(this.pass != this.confirm){
+						alert("พาสเวิร์ดไม่ตรงกัน");
+					}
+
+					else{
+						Cookies.set(this.id, this.id+","+this.pass)
+						alert("สร้างแอคเค้าท์เรียบร้อย!");
+					}
+				}
+			}
+		})
+	</script>
+</body>
+</html>

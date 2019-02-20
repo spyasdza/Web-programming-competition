@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <link rel="icon" href="pic/movie.png">
+    <title>Movies</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+  </head>
+
+  <body>
+      <div id="app1" class="container">
+        <div class="row">
+          <div class="col-md-6">
+              <h1>Movies list</h1>
+          </div>
+
+          <div class="col-md-6">
+              <div class="input-group mb-3">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text" id="basic-addon1">Search</span>
+                  </div>
+                  <input type="text" class="form-control" placeholder="Search post" aria-label="search" aria-describedby="basic-addon1">
+                </div>
+          </div>
+        </div>
+
+        <div class="alert alert-danger" role="alert" v-show="tooManyPost">
+            You post too many posts. Please stop!!!
+        </div>
+
+        <div class="row">
+          <div class="col-md-4" v-for="blog in blogs">
+            <div class="card my-3" @click="changeBGColor(blog)">
+              <img :src="blog.image" class="card-img-top img-fluid" alt="Avenger End Game" style="width: 400px; height: 530px" />
+              <div class="card-body" :class="[blog.bgColor, blog.textColor]">
+                <h5 class="card-title">
+                  <div>{{ blog.title }}</div>
+                  <!-- <span class="badge badge-success">Like: {{blog.likes}}</span>
+                  <span class="badge badge-danger">Hate: {{blog.likes}}</span> -->
+                </h5>
+                <p class="card-text">
+                  {{blog.content}}<br />
+                  <small class="text-muted">Create By: {{blog.createBy}}</small>
+                  <small class="text-muted ml-5">Create Date: {{blog.createDate}}</small>
+                </p>
+                <!--<button class="btn btn-primary">Go to my page</button>-->
+                <button class="btn btn-success" @click.stop="blog.likes++">I like this!</button>
+                <button class="btn btn-info" @click.stop="showComment(blog)">{{blog.showComment ? 'Hide comment' : 'Show comment'}}</button>
+                <div class="card mt-2 text-dark" v-show="blog.showComment" v-for="(comment, index) in blog.comments">
+                  <div class="card-body">
+                    <h6 class="card-title">Comment {{index+1}}</h6>
+                    <p class="card-text">
+                        {{comment.text}}<br />
+                      <small class="text-muted">Create By: {{comment.createBy}}</small>
+                      <small class="text-muted ml-5">Create Date: {{blog.createDate}}</small>
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.22/dist/vue.js"></script>
+    <script>
+      var vm = new Vue({
+        el: "#app1",
+        data: {
+          blogs: [
+            {
+              id: 1,
+              showComment: false,
+              title: "Avengers: Endgame (2019)",
+              content: "I love Vue.js. It is so cool and easy!",
+              createBy: "Bundit",
+              createDate: new Date().toLocaleString(),
+              image:
+                "pic/avengersendgame.jpg",
+              fb: "https://vuejs.org",
+              likes: 0,
+              comments: [
+                { text: "Yes I agree!", likes: 0, createBy: "Jack" },
+                { text: "Could not agree more!", likes: 0, createBy: "John" }
+              ]
+            },
+            {
+              id: 2,
+              showComment: false,
+              title: "Hello 12345!",
+              content:
+                "An sincerity so extremity he additions. Her yet there truth merit. Mrs all projecting favourable now unpleasing. Son law garden chatty temper. Oh children provided to mr elegance marriage strongly. Off can admiration prosperous now devonshire diminution law.",
+              createBy: "Job",
+              createDate: new Date().toLocaleString(),
+              image:
+                "pic/starwars.jpg",
+              fb: "https://vuejs.org",
+              likes: 0,
+              comments: [
+                {
+                  text: "He oppose at thrown desire of no.",
+                  likes: 0,
+                  createBy: "Jack"
+                },
+                { text: "Noooooo!", likes: 0, createBy: "John" },
+                {
+                  text:
+                    "Announcing impression unaffected day his are unreserved indulgence.",
+                  likes: 0,
+                  createBy: "John"
+                }
+              ]
+            },
+            {
+              id: 3,
+              showComment: false,
+              title: "Hello World!",
+              content: "I love Vue.js. It is so cool and easy!",
+              createBy: "Bundit",
+              createDate: new Date().toLocaleString(),
+              image:
+                "pic/cap.jpg",
+              fb: "https://vuejs.org",
+              likes: 0,
+              comments: [{ text: "Yes I agree!", likes: 0, createBy: "Jack" }]
+            },
+            {
+              id: 4,
+              showComment: false,
+              title: "Bah bah bah...",
+              content:
+                "Folly words widow one downs few age every seven. If miss part by fact he park just shew.",
+              createBy: "Job",
+              createDate: new Date().toLocaleString(),
+              image:
+                "pic/shazam.jpg",
+              fb: "https://vuejs.org",
+              likes: 0,
+              comments: [
+                { text: "Yes I agree!", likes: 0, createBy: "Jack" },
+                { text: "Could not agree more!", likes: 0, createBy: "John" },
+                { text: "Yes I agree!", likes: 0, createBy: "Job" },
+                { text: "Could not agree more!", likes: 0, createBy: "John" }
+              ]
+            },
+            {
+              id: 5,
+              showComment: false,
+              title: "Hey hey hey!",
+              content:
+                "Was certainty remaining engrossed applauded sir how discovery. Settled opinion how enjoyed greater joy adapted too shy. Now properly surprise expenses interest nor replying she she.",
+              createBy: "Bundit",
+              createDate: new Date().toLocaleString(),
+              image:
+                "pic/dumbo.jpg",
+              fb: "https://vuejs.org",
+              likes: 10,
+              comments: [
+                { text: "Yes I agree!", likes: 0, createBy: "Jack" },
+                { text: "Could not agree more!", likes: 0, createBy: "John" }
+              ]
+            }
+          ],
+          selects: [],
+          tooManyPost: false,
+          maxPost: 3
+        },
+        methods:{
+          changeBGColor(blog){
+            if(blog.bgColor == "bg-light" && blog.textColor == "text-black"){
+              blog.bgColor = "bg-dark"
+              blog.textColor = "text-light"
+            }
+            else{
+              blog.bgColor = "bg-light"
+              blog.textColor = "text-black"
+            }
+            console.log('change bg color')
+          },
+          showComment(blog){
+            if (blog.showComment == false){
+              blog.showComment = true
+            }
+            else{
+              blog.showComment = false
+            }
+            console.log('show comments')
+          }
+        },
+        computed:{
+          allLikes: function(){
+            let total = 0
+            for (blog in this.blogs){
+              total += this.blogs[blog].likes
+              console.log(blog);
+            }
+            return total
+          }
+        },
+        watch:{
+          blogs: function(value){
+            if(value.length > this.maxPost){
+              this.tooManyPost = true
+            }
+            else{
+              this.tooManyPost = false
+            }
+          }
+        }
+      });
+    </script>
+
+  </body>
+</html>
