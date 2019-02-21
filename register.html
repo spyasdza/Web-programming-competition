@@ -13,28 +13,41 @@
 </head>
 
 <body>
+	<nav class="navbar navbar-expand navbar-light bg-light">
+		<div class="navbar-collapse">
+			<ul class="navbar-nav ml-auto">
+				<li class="nav-item">
+					<a class="btn btn-outline-dark" href="movie_list.html">Home</a>
+				</li>
+				<li class="nav-item">
+					<a class="btn btn-outline-primary ml-2" href="login.html">Login</a>
+				</li>
+			</ul>
+		</div>
+    </nav>
+
 	<div id="app" class="container">
 
-		<article class="card-body mx-auto" style="max-width: 500px;">
-			<form>
+		<article class="card-body mx-auto" style="max-width: 500px;background-color: rgb(241, 239, 239);margin-top: 50px;">
+			<form @submit="regis" action="login.html">
 			<h1 class="text-center">Register</h1>
 
 				<div class="form-group">
 					<label for="user_id">id:</label>
-					<input type="text" class="form-control" id="user_id" v-model="id">
+					<input type="text" class="form-control" id="user_id" placeholder="Enter New ID" v-model="id">
 				</div>
 
 				<div class="form-group">
 					<label for="pwd1">Password:</label>
-					<input type="password" class="form-control" id="pwd1" v-model="pass">
+					<input type="password" class="form-control" id="pwd1" placeholder="Enter Password" v-model="pass">
 				</div>
 
 				<div class="form-group">
 					<label for="pwd2">Confirm Password:</label>
-					<input type="password" class="form-control" id="pwd2" v-model="confirm">
+					<input type="password" class="form-control" id="pwd2" placeholder="Confirm Password" v-model="confirm">
 				</div>
 
-				<button type="submit" class="btn btn-primary" @click="regis">Create Account</button>
+				<button type="submit" class="btn btn-primary">Create Account</button>
 			</form>
 		</article>
 	</div>
@@ -54,17 +67,20 @@
 	
 			methods:{
 				
-				regis: function() {
+				regis: function(e) {
 					if(this.id == "" || this.pass == "" || this.confirm == ""){
 						alert("กรุณากรอกข้อมูลให้ครบถ้วน");
+						e.preventDefault();
 					}
 					
-					else if(typeof Cookies.get(this.id) != "undefined"){
+					else if(typeof Cookies.get(this.id) != "undefined" || this.id == "state"){
 						alert("ไอดีนี้มีอยู่ในระบบแล้ว");
+						e.preventDefault();
 					}
 
 					else if(this.pass != this.confirm){
 						alert("พาสเวิร์ดไม่ตรงกัน");
+						e.preventDefault();
 					}
 
 					else{

@@ -13,24 +13,40 @@
 </head>
 
 <body>
+	<nav class="navbar navbar-expand navbar-light bg-light">
+		<div class="navbar-collapse">
+			<ul class="navbar-nav ml-auto">
+				<li class="nav-item">
+					<a class="btn btn-outline-dark" href="movie_list.html">Home</a>
+				</li>
+				<li class="nav-item">
+					<a class="btn btn-outline-success ml-2" href="register.html">Register</a>
+				</li>
+			</ul>
+		</div>
+    </nav>
+
 	<div id="app" class="container">
+		<span>
+		<form @submit="login" action="movie_list.html">
 		<!-- <span class="float-right btn">{{name}}</span> -->
-		<article class="card-body mx-auto" style="max-width: 500px;">
-			<span><h1 class="text-center">{{message}}</h1></span>
+		<article class="card-body mx-auto" style="max-width: 500px;background-color: rgb(241, 239, 239);margin-top: 50px;">
+			<span><h1 class="text-center">Login</h1></span>
 			
 				<div class="form-group">
 					<label for="user_id">User id:</label>
-					<input type="text" class="form-control" id="user_id" v-model="id">
+					<input type="text" class="form-control" id="user_id" placeholder="Enter ID" v-model="id">
 				</div>
 
 				<div class="form-group">
 					<label for="pwd">Password:</label>
-					<input type="password" class="form-control" id="pwd" v-model="pass">
+					<input type="password" class="form-control" id="pwd" placeholder="Enter Password" v-model="pass">
 				</div>
 
-				<button class="btn btn-primary" @click.stop="login">Login</button>
-
+				<button type="submit" class="btn btn-primary">Login</button>
 		</article>
+		</form>
+		</span>
 	</div>
 	
 
@@ -40,26 +56,29 @@
 		el: "#app",
 
 		data:{
-			message : "Login",
 			id: "",
 			pass: "",
 		},
 
 		methods:{
 			
-			login: function() {
+			login: function(e) {
 				if(this.id == "" || this.pass == ""){
 					alert("กรุณาระบุ ID หรือ Password");
+					e.preventDefault();
 				}
 				else if(typeof Cookies.get(this.id) == "undefined"){
 					alert("ไม่มีชื่อผู้ใช้นี้ในระบบ");
+					e.preventDefault();
 				}
 				else{
 					if(Cookies.get(this.id).split(",")[1] != this.pass){
 						alert("พาสเวิร์ดไม่ถูกต้อง");
+						e.preventDefault();
 					}
 					else{
 						alert("ล๊อคอินเสร็จสิ้น");
+						Cookies.set("state", "loggedin");
 					}
 				}
 			}

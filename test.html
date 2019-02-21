@@ -1,10 +1,106 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title></title>
+	<link rel="icon" href="pic/movie.png">
+	<title>Login</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/vue@2.5.22/dist/vue.js"></script>
+	<script src="Vue.js"></script>
 </head>
+
 <body>
-	<input type="checkbox" id="chk"><label for="chk">text</label>
-	<input type="checkbox" id="chk"><label>text</label>
+	<div class="container">
+	<div id="app">
+		<div>
+		  	<input type="text" v-model="search" placeholder="Search title"/>
+			<label>Search title:</label>
+		</div>
+
+		<div class="row">
+			<div class="col-md-4" v-for="post in filteredList">
+		  		<div class="card my-3">
+					<a v-bind:href="post.link" target="_blank">
+			  		<img v-bind:src="post.img" width="100px">
+			  		<small>posted by: {{ post.author }}</small>
+			  		{{ post.title }}
+					</a>
+		  		</div>
+			</div>
+		</div>
+	</div>
+
+
+	<!-- <script>
+		const app = new Vue ({
+		el: '#app',
+		data: {
+			search: '',
+			postList : [
+            {
+				title: "Vue.js",
+				link: "https://vuejs.org/",
+				author: "Chris",
+				img: "https://vuejs.org//images/logo.png", 
+            },
+			{
+				title: "React.js",
+				link: "https://facebook.github.io/react/",
+				author: "Tim",
+				img: "https://daynin.github.io/clojurescript-presentation/img/react-logo.png", 
+            },
+			{
+				title: "Angular.js",
+				link: "https://angularjs.org/",
+				author: "Sam",
+				img: "https://angularjs.org/img/ng-logo.png",
+            },
+			{
+				title: "Ember.js",
+				link: "http://emberjs.com/",
+				author: "Rachel",
+				img: "http://www.gravatar.com/avatar/0cf15665a9146ba852bf042b0652780a?s=200",
+            },
+			{
+				title: "Meteor.js",
+				link: "https://www.meteor.com/",
+				author: "Chris",
+				img: "http://hacktivist.in/introduction-to-nodejs-mongodb-meteor/img/meteor.png",
+            },
+			{
+				title: "Aurelia",
+				link: "http://aurelia.io/",
+				author: "Tim",
+				img: "https://cdn.auth0.com/blog/aurelia-logo.png",
+            },
+			{
+				title: "Node.js",
+				link: "https://nodejs.org/en/",
+				author: "A. A. Ron",
+				img: "https://code-maven.com/img/node.png",
+            },
+			{
+				title: "Pusher",
+				link: "https://pusher.com/",
+				author: "Alex",
+				img: "https://avatars1.githubusercontent.com/u/739550?v=3&s=400",
+            },
+			]
+		},
+
+		computed: {
+			filteredList() {
+			return this.postList.filter(post => {
+				return post.title.toLowerCase().includes(this.search.toLowerCase())
+				})
+			}
+		}
+	})
+	</script> -->
 </body>
 </html>
