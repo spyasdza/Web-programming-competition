@@ -31,27 +31,57 @@
         </div>
       </nav>
 
-      <div  class="container">
-        <div class="row">
-          <div class="col-md-4" v-for="movie in filteredList">
-            <div class="card my-5" @click="">
-              <img :src="movie.image" class="card-img-top img-fluid" :alt="movie.title" style="width: 400px; height: 530px"/>
-              <div class="card-body">
+        <template v-if="notChoosed">
+        <div  class="container">
+          <div class="row">
+            <div class="col-md-4" v-for="movie in filteredList">
+              <div class="card my-5" @click="chooseMovie(movie.title, movie.content, movie.image, movie.video)">
+                <img :src="movie.image" class="card-img-top img-fluid" :alt="movie.title"/>
+                <div class="card-body">
 
-                <h5 class="card-title">
-                  <div>{{ movie.title }}</div>
-                </h5>
+                  <h5 class="card-title">
+                    <div>{{ movie.title }}</div>
+                  </h5>
 
-                <p class="card-text">
-                  {{movie.content}}<br/>
-                  <small class="text-muted">Create By: {{movie.createBy}}</small>
-                  <small class="text-muted ml-5">Create Date: {{movie.createDate}}</small>
-                </p>
+                  <p class="card-text">
+                    {{movie.content}}<br/>
+                    <small class="text-muted">Create By: {{movie.createBy}}</small>
+                    <small class="text-muted ml-5">Create Date: {{movie.createDate}}</small>
+                  </p>
                 </div>
               </div>
             </div>
           </div>
         </div>
+      </template>
+
+
+      <template v-else>
+        <div class="container mt-2">
+          <div class="card">
+            <div class="row no-gutters">
+              <div class="col-4">
+                <img :src="c_pic" class="img-fluid">
+              </div>
+              
+              <div class="col">
+
+                <div class="embed-responsive embed-responsive-16by9">
+                  <iframe :src="c_video"></iframe>
+                </div>
+
+                <!-- <div class="card-block">
+                  <h4 class="card-title">{{c_title}}</h4>
+                  <p class="card-text">{{c_des}}</p>
+                  <div class="btn btn-primary" @click="notChoosed = true"> BUTTON </a>
+                </div> -->
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </template>
+  
       </div>
 
     <script src="https://cdn.jsdelivr.net/npm/vue@2.5.22/dist/vue.js"></script>
@@ -63,55 +93,81 @@
           movies: [
             {
               id: 1,
-              title: "Avengers: Endgame (2019)",
+              title: "Thor: Ragnarok",
               content: "I love Vue.js. It is so cool and easy!",
               createBy: "Bundit",
               createDate: new Date().toLocaleString(),
-              image: "pic/avengersendgame.jpg",
-              fb: "https://vuejs.org",
+              image: "pic/thor.jpg",
+              video: "https://www.youtube.com/embed/v7MGUNV8MxU",
+              type: ["Action", "Adventure", "Comedy"],
             },
             {
               id: 2,
-              title: "Hello 12345!",
+              title: "Wonder Woman",
               content: "An sincerity so extremity he additions. Her yet there truth merit. Mrs all projecting favourable now unpleasing. Son law garden chatty temper. Oh children provided to mr elegance marriage strongly. Off can admiration prosperous now devonshire diminution law.",
               createBy: "Job",
               createDate: new Date().toLocaleString(),
-              image: "pic/starwars.jpg",
-              fb: "https://vuejs.org",
+              image: "pic/wonder.jpg",
+              video: "https://www.youtube.com/embed/1Q8fG0TtVAY",
+              type: ["Action", "Adventure", "Fantasy"],
             },
             {
               id: 3,
-              title: "Hello World!",
+              title: "Guardians of the Galaxy Vol. 2",
               content: "I love Vue.js. It is so cool and easy!",
               createBy: "Bundit",
               createDate: new Date().toLocaleString(),
-              image: "pic/cap.jpg",
-              fb: "https://vuejs.org",
+              image: "pic/guardian.jpg",
+              video: "https://www.youtube.com/embed/dW1BIid8Osg",
+              type: ["Action", "Adventure", "Comedy"],
             },
             {
               id: 4,
-              title: "Bah bah bah...",
+              title: "Logan",
               content: "Folly words widow one downs few age every seven. If miss part by fact he park just shew.",
               createBy: "Job",
               createDate: new Date().toLocaleString(),
-              image: "pic/shazam.jpg",
-              fb: "https://vuejs.org",
+              image: "pic/logan.jpg",
+              video: "https://www.youtube.com/embed/Div0iP65aZo",
+              type: ["Action", "Drama", "Sci-Fi"],
             },
             {
               id: 5,
-              title: "Hey hey hey!",
+              title: "Despicable Me 3",
               content: "Was certainty remaining engrossed applauded sir how discovery. Settled opinion how enjoyed greater joy adapted too shy. Now properly surprise expenses interest nor replying she she.",
               createBy: "Bundit",
               createDate: new Date().toLocaleString(),
-              image: "pic/dumbo.jpg",
-              fb: "https://vuejs.org",
+              image: "pic/des.jpg",
+              video: "https://www.youtube.com/embed/DPP5-Es1fEo",
+              type: ["Animation", "Action", "Adventure"],
+            },
+            {
+              id: 6,
+              title: "Spider-Man: Homecoming",
+              content: "Was certainty remaining engrossed applauded sir how discovery. Settled opinion how enjoyed greater joy adapted too shy. Now properly surprise expenses interest nor replying she she.",
+              createBy: "Bundit",
+              createDate: new Date().toLocaleString(),
+              image: "pic/spiderman.jpg",
+              video: "https://www.youtube.com/embed/U0D3AOldjMU",
+              type: ["Action", "Adventure", "Sci-Fi"],
             }
           ],
-          selects: [],
+          c_title: "",
+          c_des: "",
+          c_pic: "",
+          c_video: "",
+          notChoosed: true,
         },
         methods:{
           changeState: function(){
-            Cookies.set('state', 'loggedout')
+            Cookies.set("state", "loggedout")
+          },
+          chooseMovie: function(title, content, pic, video){
+            this.c_title = title;
+            this.c_des = content;
+            this.c_pic = pic;
+            this.c_video = video;
+            this.notChoosed = false;
           },
         },
         computed:{
@@ -121,7 +177,7 @@
 				    })
           },
           checkState: function(){
-            return Cookies.get('state') == 'loggedout' || typeof Cookies.get('state') == 'undefined';
+            return Cookies.get("state") == "loggedout" || typeof Cookies.get("state") == "undefined";
           }
         },
         watch:{

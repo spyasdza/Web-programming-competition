@@ -77,8 +77,9 @@
 						e.preventDefault();
 					}
 					else{
-						alert("ล๊อคอินเสร็จสิ้น");
 						Cookies.set("state", "loggedin");
+						Cookies.set("name", this.id);
+						alert("ล๊อคอินเสร็จสิ้น");
 					}
 				}
 			}
