@@ -14,7 +14,12 @@
 
   <body>
     <div id="app1">
-      <nav class="navbar navbar-expand navbar-light bg-light">
+      <nav class="navbar navbar-expand bg-light">
+
+        <div class="navbar-header">
+          <a class="navbar-brand text-center">Movies</a>
+        </div>
+
         <div class="navbar-collapse">
           <ul class="navbar-nav ml-auto">
             <li class="nav-item">
@@ -26,12 +31,12 @@
             </li>
           </ul>
           <form class="form-inline">
-            <input class="form-control ml-2" type="search" placeholder="Search" aria-label="Search" v-model="search">
+            <input class="form-control ml-2" type="search" placeholder="Search" v-model="search">
           </form>
         </div>
       </nav>
 
-        <template v-if="notChoosed">
+        <template v-if="false">
         <div  class="container">
           <div class="row">
             <div class="col-md-4" v-for="movie in filteredList">
@@ -45,8 +50,8 @@
 
                   <p class="card-text">
                     {{movie.content}}<br/>
-                    <small class="text-muted">Create By: {{movie.createBy}}</small>
-                    <small class="text-muted ml-5">Create Date: {{movie.createDate}}</small>
+                    <small class="text-muted">Director: <span v-for="(direc, index) in movie.director"><span v-if="index > 0">, </span>{{direc}}</span></small><br/>
+                    <small class="text-muted">Type: <span v-for="(type, index) in movie.type"><span v-if="index > 0">, </span>{{type}}</span></small>
                   </p>
                 </div>
               </div>
@@ -60,27 +65,47 @@
         <div class="container mt-2">
           <div class="card">
             <div class="row no-gutters">
-              <div class="col-4">
+              <div class="col-md-4">
                 <img :src="c_pic" class="img-fluid">
               </div>
               
-              <div class="col">
+              <div class="col-md">
 
                 <div class="embed-responsive embed-responsive-16by9">
                   <iframe :src="c_video"></iframe>
                 </div>
 
-                <!-- <div class="card-block">
-                  <h4 class="card-title">{{c_title}}</h4>
-                  <p class="card-text">{{c_des}}</p>
-                  <div class="btn btn-primary" @click="notChoosed = true"> BUTTON </a>
-                </div> -->
+                <div class="card-body">
+                  <h5 class="card-title">{{c_title}}</h5>
+                  <div class="card-text">{{c_des}}</div>
+                </div>
 
               </div>
             </div>
           </div>
+          <div class="container text-center mt-2">
+            <div class="btn btn-dark" @click="notChoosed = true">Back</div>
+            <div class="btn btn-warning disabled" v-if="checkState">Login to buy a ticket</div>
+            <div class="btn btn-warning" @click="" v-else>Buy Ticket!</div>
+          </div>
         </div>
       </template>
+
+      <div class="container">
+        <h2>Form control: inline checkbox</h2>
+        <p>The form below contains three inline checkboxes:</p>
+        <form>
+          <label class="checkbox-inline">
+            <input type="checkbox" value="">Option 1
+          </label>
+          <label class="checkbox-inline">
+            <input type="checkbox" value="">Option 2
+          </label>
+          <label class="checkbox-inline">
+            <input type="checkbox" value="">Option 3
+          </label>
+        </form>
+      </div>
   
       </div>
 
@@ -94,9 +119,8 @@
             {
               id: 1,
               title: "Thor: Ragnarok",
-              content: "I love Vue.js. It is so cool and easy!",
-              createBy: "Bundit",
-              createDate: new Date().toLocaleString(),
+              content: "Thor is imprisoned on the planet Sakaar, and must race against time to return to Asgard and stop Ragnarök, the destruction of his world, at the hands of the powerful and ruthless villain Hela.",
+              director: ["Taika Waititi"],
               image: "pic/thor.jpg",
               video: "https://www.youtube.com/embed/v7MGUNV8MxU",
               type: ["Action", "Adventure", "Comedy"],
@@ -104,9 +128,8 @@
             {
               id: 2,
               title: "Wonder Woman",
-              content: "An sincerity so extremity he additions. Her yet there truth merit. Mrs all projecting favourable now unpleasing. Son law garden chatty temper. Oh children provided to mr elegance marriage strongly. Off can admiration prosperous now devonshire diminution law.",
-              createBy: "Job",
-              createDate: new Date().toLocaleString(),
+              content: "When a pilot crashes and tells of conflict in the outside world, Diana, an Amazonian warrior in training, leaves home to fight a war, discovering her full powers and true destiny.",
+              director: ["Patty Jenkins"],
               image: "pic/wonder.jpg",
               video: "https://www.youtube.com/embed/1Q8fG0TtVAY",
               type: ["Action", "Adventure", "Fantasy"],
@@ -114,9 +137,8 @@
             {
               id: 3,
               title: "Guardians of the Galaxy Vol. 2",
-              content: "I love Vue.js. It is so cool and easy!",
-              createBy: "Bundit",
-              createDate: new Date().toLocaleString(),
+              content: "The Guardians struggle to keep together as a team while dealing with their personal family issues, notably Star-Lord's encounter with his father the ambitious celestial being Ego.",
+              director: ["James Gunn"],
               image: "pic/guardian.jpg",
               video: "https://www.youtube.com/embed/dW1BIid8Osg",
               type: ["Action", "Adventure", "Comedy"],
@@ -124,9 +146,8 @@
             {
               id: 4,
               title: "Logan",
-              content: "Folly words widow one downs few age every seven. If miss part by fact he park just shew.",
-              createBy: "Job",
-              createDate: new Date().toLocaleString(),
+              content: "In a future where mutants are nearly extinct, an elderly and weary Logan leads a quiet life. But when Laura, a mutant child pursued by scientists, comes to him for help, he must get her to safety.",
+              director: ["James Mangold"],
               image: "pic/logan.jpg",
               video: "https://www.youtube.com/embed/Div0iP65aZo",
               type: ["Action", "Drama", "Sci-Fi"],
@@ -134,9 +155,8 @@
             {
               id: 5,
               title: "Despicable Me 3",
-              content: "Was certainty remaining engrossed applauded sir how discovery. Settled opinion how enjoyed greater joy adapted too shy. Now properly surprise expenses interest nor replying she she.",
-              createBy: "Bundit",
-              createDate: new Date().toLocaleString(),
+              content: "Gru meets his long-lost charming, cheerful, and more successful twin brother Dru who wants to team up with him for one last criminal heist.",
+              director: ["Kyle Balda", "Pierre Coffin", "Eric Guillon"],
               image: "pic/des.jpg",
               video: "https://www.youtube.com/embed/DPP5-Es1fEo",
               type: ["Animation", "Action", "Adventure"],
@@ -144,9 +164,8 @@
             {
               id: 6,
               title: "Spider-Man: Homecoming",
-              content: "Was certainty remaining engrossed applauded sir how discovery. Settled opinion how enjoyed greater joy adapted too shy. Now properly surprise expenses interest nor replying she she.",
-              createBy: "Bundit",
-              createDate: new Date().toLocaleString(),
+              content: "Peter Parker balances his life as an ordinary high school student in Queens with his superhero alter-ego Spider-Man, and finds himself on the trail of a new menace prowling the skies of New York City.",
+              director: ["Jon Watts"],
               image: "pic/spiderman.jpg",
               video: "https://www.youtube.com/embed/U0D3AOldjMU",
               type: ["Action", "Adventure", "Sci-Fi"],
@@ -157,6 +176,7 @@
           c_pic: "",
           c_video: "",
           notChoosed: true,
+          price: 0,
         },
         methods:{
           changeState: function(){
