@@ -23,7 +23,7 @@
         <div class="navbar-collapse">
           <ul class="navbar-nav ml-auto">
               <li class="nav-item mr-2">
-                <div class="btn btn-info btn-sm disabled" v-if="checkState == false">Welcome {{name}} !</dive>
+                <div class="btn btn-info btn-sm mt-1 disabled" v-if="checkState == false">Welcome, {{name}} !</dive>
                 </li>
             <li class="nav-item mr-2">
               <a class="btn btn-outline-dark" href="movie_list.html">Home</a>
@@ -130,18 +130,33 @@
                     <div class="text-muted">Theater: {{theater}}</div>
                     <div class="text-muted">Time: {{time}}</div>
                     <!-- <div class="text-muted">Seat: {{seat}}</div> -->
-                    <div class="text-muted">Price: {{price}}</div>
+                    <div class="text-muted">Price: {{new_price}}</div>
+                    <div class="text-muted">Seat: <span v-for="(seat, index) in checkedNames"><span v-if="index > 0">, </span>{{seat}}</span></div>
                   </p>
                 </div>
               </div>
             </div>
 
             <div class="col-md">
+              
               <span>
                 <form @submit="checkForm">
                 <!-- <span class="float-right btn">{{name}}</span> -->
                 <article class="card-body mx-auto" style="max-width: 500px;background-color: rgb(241, 239, 239)">
                   <span><h1 class="text-center">Buy Ticket</h1></span>
+                    <div class="container text-center mt-5">
+                        <div class="row">
+                          <div class="col">
+                            <button type="button" class="btn-xs btn-primary btn-block" disabled>Screen</button>
+                          </div>
+                        </div>
+                        <div class="form-group mt-5">
+                          <label class="checkbox-inline"><input type="checkbox" :value="row_a[index]" v-model="checkedNames" v-for="(seat, index) in row_a"></label><br>
+                          <label class="checkbox-inline"><input type="checkbox" :value="row_b[index]" v-model="checkedNames" v-for="(seat, index) in row_b"></label><br>
+                          <label class="checkbox-inline"><input type="checkbox" :value="row_c[index]" v-model="checkedNames" v-for="(seat, index) in row_c"></label><br>
+                        </div>
+                        <!-- <div>{{checkedNames}}</div> -->
+                    </div>
                   
                     <div class="form-group">
                       <label for="sel1">Select Theater:</label>
@@ -200,6 +215,10 @@
       var vm = new Vue({
         el: "#app1",
         data: {
+          checkedNames: [],
+			    row_a:["a1","a2", "a3", "a4", "a5", "a6","a7", "a8", "a9", "a10"],
+			    row_b:["b1","b2", "b3", "b4", "b5", "b6","b7", "b8", "b9", "b10"],
+			    row_c:["c1","c2", "c3", "c4", "c5", "c6","c7", "c8", "c9", "c10"],
           search: "",
           movies: [
             {
@@ -272,11 +291,12 @@
           c_video: "",
           c_time: [],
           notChoosed: true,
-          price: "-",
+          price: 0,
           time: "-",
           // seat: "-",
           theater: "-",
           ticket_type: "-",
+          new_price: 0,
         },
         methods:{
           changeState: function(){
@@ -297,7 +317,7 @@
               e.preventDefault();
             }
             else{
-              alert("คุณ "+this.name+" ขอบคุณที่ใช้บริการกับเรา")
+              alert("คุณ "+this.name+" ขอบคุณที่ใช้บริการกับเรา ตั๋วของท่านปริ้นเรียบร้อย")
               e.preventDefault();
             }
           },
@@ -323,7 +343,12 @@
             else if(value == "Adult"){
               this.price = 120
             }
-          }
+            this.new_price = this.price * this.checkedNames.length
+          },
+          checkedNames: function(value){
+            price = this.price
+            this.new_price = price * value.length
+          },
         }
       });
 
