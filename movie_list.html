@@ -192,7 +192,7 @@
                       </select>
                     </div>
 
-                    <button type="submit" class="btn btn-primary">Confirm</button>
+                    <button type="submit" class="btn btn-primary">Print</button>
 
                 </article>
                 </form>
@@ -312,7 +312,7 @@
             this.choose = true;
           },
           checkForm: function(e){
-            if(this.price == "-" || this.time == "-" || this.theater == "-"){
+            if(this.new_price == 0 || this.time == "-" || this.theater == "-" || this.checkedNames.length == 0){
               alert("กรุณากรอกข้อมูลให้ครบถ้วน");
               e.preventDefault();
             }
