@@ -10,6 +10,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
+    
   </head>
 
   <body>
@@ -42,6 +43,7 @@
         </div>
       </nav>
 
+      <div class="bgpic">
         <template v-if="notChoosed">
         <div  class="container">
           <div class="row">
@@ -55,7 +57,6 @@
                   </h5>
 
                   <p class="card-text">
-                    {{movie.content}}<br/>
                     <small class="text-muted">Director: <span v-for="(direc, index) in movie.director"><span v-if="index > 0">, </span>{{direc}}</span></small><br/>
                     <small class="text-muted">Type: <span v-for="(type, index) in movie.type"><span v-if="index > 0">, </span>{{type}}</span></small>
                   </p>
@@ -68,7 +69,7 @@
 
 
       <template v-if="choose">
-        <div class="container mt-2">
+        <div class="container mt-2 mb-5">
           <div class="card">
             <div class="row no-gutters">
               <div class="col-md-4">
@@ -82,8 +83,8 @@
                 </div>
 
                 <div class="card-body">
-                  <h5 class="card-title">{{c_title}}</h5>
-                  <div class="card-text">{{c_des}}</div>
+                  <h5 class="card-title text-center">{{c_title}}</h5>
+                  <div class="card-text">&emsp;{{c_des}}</div>
                 </div>
 
               </div>
@@ -114,7 +115,7 @@
       </div> -->
 
       <template v-if="want_to_buy">
-        <div class="container mt-2">
+        <div class="container mt-2 mb-5">
           <div class="row">
             <div class="col-md-4">
               <div class="card">
@@ -164,7 +165,6 @@
                         <option>1</option>
                         <option>2</option>
                         <option>3</option>
-                        <option>4</option>
                       </select>
                     </div>
 
@@ -183,14 +183,14 @@
                       </select>
                     </div>
 
-                    <div class="form-group">
+                    <!-- <div class="form-group">
                       <label for="sel1">Select Payment method:</label>
                       <select class="form-control" id="sel4">
                         <option>Cash</option>
                         <option>Credit Card</option>
                         <option>PromptPay</option>
                       </select>
-                    </div>
+                    </div> -->
 
                     <button type="submit" class="btn btn-primary">Print</button>
 
@@ -201,14 +201,95 @@
           </div>
         </div>
       </template>
+
+      
+
+      <footer class="footer">
+
+          <p class="content1">-Contact Us-</p>
+  
+          <p class="content2">
+              <a href="https://www.facebook.com/spyasdza28"><img src="pic/fb.png" height="30px" width="30px"></a>
+              .
+              <a href="https://www.instagram.com/pischyd/"><img src="pic/ig.png" height="30px" width="30px"></a>
+              .
+              <a href="https://twitter.com/PlantTime1"><img src="pic/tt.png" height="30px" width="30px"></a>
+          </p>
+      </footer>
+    </div>
+
+    <div id="go-top">
+        <a href="#app1"><img src="pic/top.png" width="50px" height="50px"></a>
+    </div>
   
     </div>
 
-    <!-- <style>
-      .custom {
-        width: 50px !important;
+    <style>
+      html {
+        scroll-behavior: smooth;
       }
-    </style> -->
+
+      .bgpic{
+        background-size: cover;
+        background-image: url("pic/robo.jpg");
+        background-attachment: fixed;
+        background-repeat: no-repeat;
+        height: 100%;
+        overflow: hidden;
+      
+      }
+      /*set footer*/
+      .footer{
+          background-color: white;
+          box-sizing: border-box;
+          width: 100%;
+          text-align: center;
+          padding: 45px;
+          margin-top: 0px;
+          opacity: 0.9;
+          box-shadow: 2px 2px black;
+      }
+
+      /*set footer text Contact*/
+      .footer .content1{
+          color:  #8d9093;
+          font-size: 24px;
+          margin: 0;
+      }
+
+      /*set footer img link*/
+      .footer .content2{
+          padding: 35px 0 23px;
+          margin: 0;
+      }
+
+      /*set footer img link*/
+      .footer .content2 a{
+          display: inline-block;
+          opacity: 0.7;
+      }
+
+      /*set footer img link hover*/
+      .footer .content2 a:hover{
+          opacity: 1;
+      }
+
+      #go-top{
+        top: 90%;
+        left: 95%;
+        position: fixed;
+        border-radius: 50%;
+        opacity: 0.5;
+        transition: 0.3s;
+        /* background: white; */
+        /* visibility: hidden; */
+      }
+
+      #go-top:hover{
+        transition: 3;
+        opacity: 1;
+      }
+    </style>
 
     <script src="https://cdn.jsdelivr.net/npm/vue@2.5.22/dist/vue.js"></script>
     <script>
@@ -280,7 +361,107 @@
               video: "https://www.youtube.com/embed/U0D3AOldjMU",
               type: ["Action", "Adventure", "Sci-Fi"],
               times: ["13:30", "18:50", "23:00"],
-            }
+            },
+            {
+              id: 6,
+              title: "Spider-Man: Homecoming",
+              content: "Peter Parker balances his life as an ordinary high school student in Queens with his superhero alter-ego Spider-Man, and finds himself on the trail of a new menace prowling the skies of New York City.",
+              director: ["Jon Watts"],
+              image: "pic/spiderman.jpg",
+              video: "https://www.youtube.com/embed/U0D3AOldjMU",
+              type: ["Action", "Adventure", "Sci-Fi"],
+              times: ["13:30", "18:50", "23:00"],
+            },
+            {
+              id: 6,
+              title: "Spider-Man: Homecoming",
+              content: "Peter Parker balances his life as an ordinary high school student in Queens with his superhero alter-ego Spider-Man, and finds himself on the trail of a new menace prowling the skies of New York City.",
+              director: ["Jon Watts"],
+              image: "pic/spiderman.jpg",
+              video: "https://www.youtube.com/embed/U0D3AOldjMU",
+              type: ["Action", "Adventure", "Sci-Fi"],
+              times: ["13:30", "18:50", "23:00"],
+            },
+            {
+              id: 6,
+              title: "Spider-Man: Homecoming",
+              content: "Peter Parker balances his life as an ordinary high school student in Queens with his superhero alter-ego Spider-Man, and finds himself on the trail of a new menace prowling the skies of New York City.",
+              director: ["Jon Watts"],
+              image: "pic/spiderman.jpg",
+              video: "https://www.youtube.com/embed/U0D3AOldjMU",
+              type: ["Action", "Adventure", "Sci-Fi"],
+              times: ["13:30", "18:50", "23:00"],
+            },
+            {
+              id: 6,
+              title: "Spider-Man: Homecoming",
+              content: "Peter Parker balances his life as an ordinary high school student in Queens with his superhero alter-ego Spider-Man, and finds himself on the trail of a new menace prowling the skies of New York City.",
+              director: ["Jon Watts"],
+              image: "pic/spiderman.jpg",
+              video: "https://www.youtube.com/embed/U0D3AOldjMU",
+              type: ["Action", "Adventure", "Sci-Fi"],
+              times: ["13:30", "18:50", "23:00"],
+            },
+            {
+              id: 6,
+              title: "Spider-Man: Homecoming",
+              content: "Peter Parker balances his life as an ordinary high school student in Queens with his superhero alter-ego Spider-Man, and finds himself on the trail of a new menace prowling the skies of New York City.",
+              director: ["Jon Watts"],
+              image: "pic/spiderman.jpg",
+              video: "https://www.youtube.com/embed/U0D3AOldjMU",
+              type: ["Action", "Adventure", "Sci-Fi"],
+              times: ["13:30", "18:50", "23:00"],
+            },
+            {
+              id: 6,
+              title: "Spider-Man: Homecoming",
+              content: "Peter Parker balances his life as an ordinary high school student in Queens with his superhero alter-ego Spider-Man, and finds himself on the trail of a new menace prowling the skies of New York City.",
+              director: ["Jon Watts"],
+              image: "pic/spiderman.jpg",
+              video: "https://www.youtube.com/embed/U0D3AOldjMU",
+              type: ["Action", "Adventure", "Sci-Fi"],
+              times: ["13:30", "18:50", "23:00"],
+            },
+            {
+              id: 6,
+              title: "Spider-Man: Homecoming",
+              content: "Peter Parker balances his life as an ordinary high school student in Queens with his superhero alter-ego Spider-Man, and finds himself on the trail of a new menace prowling the skies of New York City.",
+              director: ["Jon Watts"],
+              image: "pic/spiderman.jpg",
+              video: "https://www.youtube.com/embed/U0D3AOldjMU",
+              type: ["Action", "Adventure", "Sci-Fi"],
+              times: ["13:30", "18:50", "23:00"],
+            },
+            {
+              id: 6,
+              title: "Spider-Man: Homecoming",
+              content: "Peter Parker balances his life as an ordinary high school student in Queens with his superhero alter-ego Spider-Man, and finds himself on the trail of a new menace prowling the skies of New York City.",
+              director: ["Jon Watts"],
+              image: "pic/spiderman.jpg",
+              video: "https://www.youtube.com/embed/U0D3AOldjMU",
+              type: ["Action", "Adventure", "Sci-Fi"],
+              times: ["13:30", "18:50", "23:00"],
+            },
+            {
+              id: 6,
+              title: "Spider-Man: Homecoming",
+              content: "Peter Parker balances his life as an ordinary high school student in Queens with his superhero alter-ego Spider-Man, and finds himself on the trail of a new menace prowling the skies of New York City.",
+              director: ["Jon Watts"],
+              image: "pic/spiderman.jpg",
+              video: "https://www.youtube.com/embed/U0D3AOldjMU",
+              type: ["Action", "Adventure", "Sci-Fi"],
+              times: ["13:30", "18:50", "23:00"],
+            },
+            {
+              id: 6,
+              title: "Spider-Man: Homecoming",
+              content: "Peter Parker balances his life as an ordinary high school student in Queens with his superhero alter-ego Spider-Man, and finds himself on the trail of a new menace prowling the skies of New York City.",
+              director: ["Jon Watts"],
+              image: "pic/spiderman.jpg",
+              video: "https://www.youtube.com/embed/U0D3AOldjMU",
+              type: ["Action", "Adventure", "Sci-Fi"],
+              times: ["13:30", "18:50", "23:00"],
+            },
           ],
           choose: false,
           name: Cookies.get("name"),
@@ -333,7 +514,7 @@
           },
           checkState: function(){
             return Cookies.get("state") == "loggedout" || typeof Cookies.get("state") == "undefined";
-          }
+          },
         },
         watch:{
           ticket_type: function(value){
