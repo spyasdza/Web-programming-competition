@@ -87,13 +87,14 @@
 					e.preventDefault();
 				}
 				else{
-					if(Cookies.get(this.id).split(",")[1] != this.pass){
+					if(Cookies.getJSON(this.id)[1] != this.pass){
 						alert("พาสเวิร์ดไม่ถูกต้อง");
 						e.preventDefault();
 					}
 					else{
 						Cookies.set("state", "loggedin");
 						Cookies.set("name", this.id);
+						Cookies.set("t_name", this.id);
 						alert("ล๊อคอินเสร็จสิ้น");
 					}
 				}

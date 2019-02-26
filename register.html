@@ -88,7 +88,7 @@
 						e.preventDefault();
 					}
 					
-					else if(typeof Cookies.get(this.id) != "undefined" || this.id == "state" || this.id == "name"){
+					else if(typeof Cookies.get(this.id) != "undefined" || this.id == "state" || this.id == "name" || this.id == "ticket"){
 						alert("ไอดีนี้มีอยู่ในระบบแล้ว");
 						e.preventDefault();
 					}
@@ -99,7 +99,7 @@
 					}
 
 					else{
-						Cookies.set(this.id, this.id+","+this.pass)
+						Cookies.set(this.id, [this.id, this.pass])
 						alert("สร้างแอคเค้าท์เรียบร้อย!");
 					}
 				}

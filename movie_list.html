@@ -40,6 +40,9 @@
                 <a class="btn btn-outline-light" href="movie_list.html">Home</a>
               </li>
               <li class="nav-item">
+                  <a class="btn btn-outline-warning mr-2" href="ticket.html">Your Ticket</a>
+                </li>
+              <li class="nav-item">
                 <a class="btn btn-outline-primary" href="login.html" v-if="checkState">Login</a>
                 <a class="btn btn-outline-danger" href="login.html" @click="changeState" v-else>Logout</a>
               </li>
@@ -144,6 +147,7 @@
                     <!-- <div class="text-muted">Seat: {{seat}}</div> -->
                     <div class="text-muted">Price: {{new_price}}</div>
                     <div class="text-muted">Seat: <span v-for="(seat, index) in checkedNames"><span v-if="index > 0">, </span>{{seat}}</span></div>
+                    <div class="text-muted">Payment: {{pay}}</div>
                   </p>
                 </div>
               </div>
@@ -194,21 +198,45 @@
                       </select>
                     </div>
 
-                    <!-- <div class="form-group">
+                    <div class="form-group">
                       <label for="sel1">Select Payment method:</label>
-                      <select class="form-control" id="sel4">
+                      <select class="form-control" id="sel4" v-model="pay">
                         <option>Cash</option>
                         <option>Credit Card</option>
                         <option>PromptPay</option>
                       </select>
-                    </div> -->
+                    </div>
 
-                    <button type="submit" class="btn btn-primary">Next</button>
+                    <button type="submit" class="btn btn-primary">Confirm</button>
 
                 </article>
                 </form>
               </span>
             </div>
+
+            <!-- <div class="col-md" v-show="true">
+              
+                <span>
+                  <form @submit="checkForm">
+                  <article class="card-body mx-auto" style="max-width: 500px;background-color: rgb(241, 239, 239)">
+                    <span><h1 class="text-center">Confirm</h1></span>
+                      <div class="container text-center mt-5">
+
+                      <div class="form-group">
+                        <label for="sel5"></label>
+                        <select class="form-control" id="sel5">
+                          <option>Cash</option>
+                          <option>Credit Card</option>
+                          <option>PromptPay</option>
+                        </select>
+                      </div>
+  
+                      <button type="submit" class="btn btn-primary">Next</button>
+  
+                  </article>
+                  </form>
+                </span>
+              </div> -->
           </div>
         </div>
       </template>
@@ -313,6 +341,7 @@
           theater_lo: "Ladkrabang",
           theater_num: 0,
           checkedNames: [],
+          pay: "Cash",
 			    row_a:["a1","a2", "a3", "a4", "a5", "a6","a7", "a8", "a9", "a10"],
 			    row_b:["b1","b2", "b3", "b4", "b5", "b6","b7", "b8", "b9", "b10"],
 			    row_c:["c1","c2", "c3", "c4", "c5", "c6","c7", "c8", "c9", "c10"],
@@ -562,13 +591,14 @@
           price: 0,
           time: "-",
           // seat: "-",
-          theater: "-",
+          // theater: "-",
           ticket_type: "-",
           new_price: 0,
         },
         methods:{
           changeState: function(){
             Cookies.set("state", "loggedout")
+            Cookies.set("t_name", "")
           },
           chooseMovie: function(title, content, pic, video, time){
             this.c_title = title;
@@ -580,12 +610,14 @@
             this.choose = true;
           },
           checkForm: function(e){
-            if(this.new_price == 0 || this.time == "-" || this.theater == "-" || this.checkedNames.length == 0){
+            if(this.new_price == 0 || this.time == "-" || this.checkedNames.length == 0){
               alert("กรุณากรอกข้อมูลให้ครบถ้วน");
               e.preventDefault();
             }
             else{
-              alert("คุณ "+this.name+" ขอบคุณที่ใช้บริการกับเรา ตั๋วของท่านปริ้นเรียบร้อย")
+              Cookies.set("ticket",[this.c_title,this.name,this.time,this.new_price,this.pay,this.checkedNames, this.c_pic]);
+              Cookies.set("t_name", Cookies.get("name"));
+              alert("คุณ "+this.name+" ตั๋วของท่านถูกเพิ่มเรียบร้อย ตรวจสอบ Your Ticket")
               e.preventDefault();
             }
           },
